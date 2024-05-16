@@ -17,7 +17,6 @@ const Schema = mongoose.Schema({
     },
 },
     {timestamps: true},
-
 );
 
 Schema.pre("save", async function(next){
@@ -25,6 +24,6 @@ Schema.pre("save", async function(next){
     next();
 });
 
-const userSchema = mongoose.model('User', Schema);
+const userModel = mongoose.model('User', Schema);
 
-export default userSchema;
+export default userModel;

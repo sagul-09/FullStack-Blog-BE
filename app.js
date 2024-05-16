@@ -2,7 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import router from './router/userRouter.js';
+import userRouter from './router/userRouter.js';
+import blogRouter from './router/blogRouter.js';
 
 const app = express();
 
@@ -23,7 +24,8 @@ app.get('/', (req, res) => {
     }
 );
  
-app.use('/api/v1/users', router);
+app.use('/api/v1/users', userRouter);
+app.use('/api/v1/blogs', blogRouter);
 
 app.listen(PORT,() => { 
     console.log(`Server is running on port http://localhost:${PORT}`);
