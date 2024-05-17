@@ -33,4 +33,30 @@ const createBlog = async (req,res)=>{
     }
 }
 
-export {getAllBlogs, getBlogByID, createBlog}
+const updateBlog = async (req, res) => {
+    try {
+        //update blog
+        const blogUpdate = await blogModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!blogUpdate) {
+            return res.status(404).json({ message: "Blog not found" });
+        }
+        return res.status(200).json({ message: "Blog has been edited successfully", blog: blogUpdate });
+    } catch (err) {
+        return res.status(500).json({ message: err.message });
+    }
+}
+
+const deleteBlog = async (req,res)=>{
+    try{
+        //delete blog
+        const blogDelete = await blogModel.findByIdAndDelete(req.params.id);
+        if(!blogDelete){
+            return res.status(404).json({message: "Blog not found"});
+        }
+        return res.status(200).json({message: "Blog has been deleted sucessfully"})
+    }catch(err){
+        return res.status(500).json({message:err.message});
+    }
+}
+
+export {getAllBlogs, getBlogByID, createBlog, updateBlog, deleteBlog}
