@@ -1,6 +1,8 @@
 import express from "express";
 import userModel from "../model/userModel.js";
 import bcrypt from "bcrypt";
+import authMiddleware from "../middleware/authMiddleware.js";
+// import jwt from "jsonwebtoken";
 
 const getAllUsers = async (req,res)=>{
     try{
@@ -49,7 +51,10 @@ const loginUser = async(req,res)=>{
         if(!passwordMatch){
             return res.status(401).json({message: "Invalid credentials"});
         }
-        return res.status(201).json({message: "User has been logged in successfully",username: req.body.username})
+        const token = jwt.sign({ userId: userExists._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+        // Return JWT token in response
+        return res.status(201).json({ message: "User has been logged in successfully", token });
         
     }catch(err){
         return res.status(500).json({message: "Login failed",err: err.message})

@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import userRouter from './router/userRouter.js';
 import blogRouter from './router/blogRouter.js';
 
+
 const app = express();
 
 dotenv.config();
@@ -19,11 +20,6 @@ const db = mongoose.connect(process.env.DB_URI).then(()=>{
     console.log('Error:' ,err);
 });
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-    }
-);
- 
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/blogs', blogRouter);
 

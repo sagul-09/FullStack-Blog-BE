@@ -1,14 +1,18 @@
 import blogModel from '../model/blogModel.js'
+// import authMiddleware from '../middleware/authMiddleware.js'; ``
 
-const getAllBlogs = async (req,res)=>{
+const getAllBlogs = async (req, res) => {
     //to get all blogs
-    try{
-        const getBlogs = await blogModel.find();
-        return res.status(200).json({message: "All blogs have been retrived successfully",getBlogs});
-    }catch(err){   
-        return res.status(500).json({message: err.message});
+    try {
+      const getBlogs = await blogModel.find();
+      console.log(getBlogs);
+      return res
+        .status(200)
+        .json({ message: "All blogs have been retrived successfully", getBlogs });
+    } catch (err) {
+      return res.status(500).json({ message: err.message });
     }
-}
+  };
 
 const getBlogByID = async (req,res)=>{
     try{

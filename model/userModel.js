@@ -20,7 +20,7 @@ const Schema = mongoose.Schema({
 );
 
 Schema.pre("save", async function(next){
-    const salt = await bcrypt.genSalt(10);
+    const salt = await bcrypt.genSalt(10); 
     this.password = bcrypt.hashSync(this.password, salt);
     next();
     //Prevent Duplicate Hashes: Without a salt, two users with the same password 
