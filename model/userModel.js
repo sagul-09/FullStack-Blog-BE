@@ -15,6 +15,10 @@ const Schema = mongoose.Schema({
         required: true,
         min: 8
     },
+    role: {
+      type: String,
+      default: "user",
+    }
 },
     {timestamps: true},
 );

@@ -1,11 +1,12 @@
 import blogModel from '../model/blogModel.js'
+import multer from 'multer';
 // import authMiddleware from '../middleware/authMiddleware.js'; ``
 
 const getAllBlogs = async (req, res) => {
     //to get all blogs
     try {
       const getBlogs = await blogModel.find();
-      console.log(getBlogs);
+    //   console.log(getBlogs);
       return res
         .status(200)
         .json({ message: "All blogs have been retrived successfully", getBlogs });
@@ -36,6 +37,17 @@ const createBlog = async (req,res)=>{
         return res.status(500).json({message: err.message});
     }
 }
+
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+      cb(null, './uploads/');
+    },
+    filename: function(req, file, cb) {
+      cb(null, new Date().toISOString() + file.originalname);
+    }
+  });
+  
+  const upload = multer({ storage: storage });
 
 const updateBlog = async (req, res) => {
     try {

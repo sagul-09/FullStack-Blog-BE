@@ -4,14 +4,18 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import userRouter from './router/userRouter.js';
 import blogRouter from './router/blogRouter.js';
-
+import cookieParser from "cookie-parser";
 
 const app = express();
 
 dotenv.config();
-app.use(cors());
+const corsConfig = {
+  credentials: true,
+  origin: true,
+};
+app.use(cors(corsConfig));
 app.use(express.json());
-
+app.use(cookieParser());
 const PORT = 2400;
 
 const db = mongoose.connect(process.env.DB_URI).then(()=>{
